@@ -1,0 +1,272 @@
+/* ==========================================================================
+   1. GLOBAL & VARIABEL STRUKTUR (BASE STYLE)
+   ========================================================================== */
+:root {
+    --primary-blue: #00a0e9;
+    --text-dark: #333333;
+    --bg-light: #f8f9fa;
+    --border-color: #e9ecef;
+    --bg-card-nav: #ffffff;
+}
+
+[data-bs-theme="dark"] {
+    --text-dark: #f8f9fa;
+    --bg-light: #121212;
+    --border-color: #2d3238;
+    --bg-card-nav: #1e242b; 
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html, body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;        
+    overscroll-behavior: none;
+}
+
+.form-control:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 0.15rem rgba(0, 160, 233, 0.15);
+}
+
+/* Modals & Penyelarasan Tombol Aksi */
+#btnBatal {
+    transition: all 0.2s ease;
+}
+
+#btnBatal:hover,
+#btnTambahkan:hover {
+    background-color: #192434 !important; 
+    border-color: #192434 !important;    
+    color: white !important;             
+}
+
+
+/* ==========================================================================
+   2. NAVBAR & SIDEBAR (DIPAKAI DI SEMUA HALAMAN)
+   ========================================================================== */
+.navbar-custom {
+    background-color: var(--bg-card-nav);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 20px;
+}
+
+.brand-title {
+    color: var(--primary-blue);
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.sidebar-wrapper {
+    background-color: var(--bg-card-nav); 
+    height: calc(100vh - 60px);
+    border-right: 1px solid var(--border-color);
+    padding-top: 20px;
+    position: sticky;
+    top: 60px;
+    overflow: hidden;
+}
+
+.sidebar {
+    background-color: var(--bg-card-nav);
+}
+
+.nav-link {
+    color: var(--text-dark);
+    font-weight: 500;
+    font-size: 12px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-blue);
+    background-color: rgba(0, 160, 233, 0.1);
+}
+
+.card {
+    background-color: var(--bg-card-nav);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+
+/* ==========================================================================
+   3. KODE KHUSUS: HALAMAN PROFILE
+   ========================================================================== */
+.photo-box {
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.photo-box:hover {
+    border-color: var(--primary-blue) !important;
+    background-color: rgba(0, 160, 233, 0.05) !important;
+}
+
+#btnSimpan {
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+#btnSimpan:hover {
+    background-color: #008cd1 !important;
+}
+
+
+/* ==========================================================================
+   4. KODE KHUSUS: HALAMAN MANAJEMEN PERANGKAT / DAFTAR KAMERA
+   ========================================================================== */
+.form-select {
+    background-image: none !important;
+    padding-right: 2.25rem !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--bg-card-nav);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+.form-select:hover {
+    border-color: #192434;
+    color: #192434;
+    background-color: var(--bg-card-nav) !important;
+}
+
+[data-bs-theme="dark"] .form-select:hover {
+    border-color: var(--primary-blue);
+    color: var(--text-dark);
+}
+
+.form-select:focus, 
+.form-select:active {
+    border-color: var(--primary-blue) !important;
+    color: var(--text-dark);
+    box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.1) !important;
+    outline: none !important;
+}
+
+.filter-icon-wrapper {
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.form-select:focus + .filter-icon-wrapper .bi-chevron-down {
+    transform: rotate(180deg);
+    color: var(--primary-blue) !important;
+}
+
+.filter-icon-wrapper:hover .bi-x-lg {
+    color: #a71d2a !important;
+    transform: scale(1.2);
+}
+
+.button-custom {
+    font-size: 12px !important;
+    border: 1px solid var(--border-color) !important;
+    background-color: var(--bg-card-nav) !important;
+    color: var(--text-dark) !important;
+    transition: all 0.2s ease !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.button-custom:hover {
+    border-color: var(--primary-blue) !important;
+    background-color: rgba(0, 160, 233, 0.05) !important;
+}
+
+#device-container {
+    height: 420px; 
+    overflow-y: auto;
+    background-color: var(--bg-card-nav);
+}
+
+#device-container::-webkit-scrollbar {
+    width: 6px;
+}
+#device-container::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 10px;
+}
+#device-container::-webkit-scrollbar-track {
+    background-color: var(--bg-light);
+}
+
+.btn-group-toggle {
+    height: 25px;
+    display: flex;
+}
+
+.btn-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px !important;
+    padding: 0 8px !important;
+    border: 1px solid var(--border-color) !important;
+    line-height: 1 !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-toggle.active-on {
+    background-color: #00a0e9 !important;
+    color: #fff !important;
+    border-color: #dee2e6 !important;
+}
+
+.btn-toggle.active-off {
+    background-color: #192434 !important;
+    color: #ffffff !important;
+    border-color: #dee2e6 !important;
+}
+
+.btn-toggle.inactive {
+    background-color: var(--bg-light) !important;
+    color: #adb5bd !important;
+}
+
+.bi-three-dots-vertical {
+    color: var(--text-dark);
+    font-size: 14px;
+    padding: 4px;
+    transition: color 0.2s;
+}
+.bi-three-dots-vertical:hover {
+    color: var(--primary-blue) !important;
+}
+
+/* ==========================================================================
+   5. MEDIA QUERIES (MEDIA RESPONSIVE LAYOUT)
+   ========================================================================== */
+@media (max-width: 991.98px) {
+    .sidebar-wrapper { 
+        display: none; 
+    }
+    
+    .brand-title { 
+        font-size: 1rem; 
+    }
+    
+    .border-end {
+        border-end-style: solid !important;
+        border-right: none !important;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+    }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - K3 Monitoring Dashboard</title>
+
+    <script>
+        (function () {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', currentTheme);
+        })();
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="app-content">
+        <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile">
+                        <i class="bi bi-list fs-4"></i>
+                    </button>
+                    
+                    <div class="d-flex align-items-center">
+                        <img src="img/logo-pln-icon.png" alt="PLN Logo" class="me-3" style="height: 40px; width: auto; object-fit: contain;">
+                    </div>
+                    <h1 class="brand-title d-none d-sm-block">K3 MONITORING DASHBOARD</h1>
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a href="profile.html" class="text-decoration-none">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center border" style="width: 35px; height: 35px; background-color: var(--bg-light);">
+                        <i class="bi bi-person-fill text-secondary fs-5"></i>
+                    </div>
+                </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="row">
+                
+                <nav class="col-lg-2 d-none d-lg-block sidebar-wrapper sidebar">
+                    <div class="nav flex-column">
+                        <a href="dashboard.html" class="nav-link"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                        <a href="daftar_kamera.html" class="nav-link"><i class="bi bi-camera-video-fill"></i> Daftar Kamera</a>
+                        <a href="log_riwayat.html" class="nav-link"><i class="bi bi-clock-history"></i> Log Riwayat</a>
+                        <a href="pengaturan.html" class="nav-link active"><i class="bi bi-gear-fill"></i> Pengaturan</a>
+                    </div>
+                </nav>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMobile">
+                    <div class="offcanvas-header border-bottom">
+                        <h5 class="offcanvas-title brand-title">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                    </div>
+                    <div class="offcanvas-body p-0 pt-2">
+                        <div class="nav flex-column">
+                            <a href="dashboard.html" class="nav-link"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                            <a href="daftar_kamera.html" class="nav-link"><i class="bi bi-camera-video-fill"></i> Daftar Kamera</a>
+                            <a href="log_riwayat.html" class="nav-link"><i class="bi bi-clock-history"></i> Log Riwayat</a>
+                            <a href="pengaturan.html" class="nav-link active"><i class="bi bi-gear-fill"></i> Pengaturan</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <main class="col-lg-10 col-12 py-3 px-md-3">
+                    <h4 class="fw-bold mb-3" style="font-size: 12px;">PENGATURAN</h4>
+
+                    <div class="row g-3">
+                        <div class="col-xl-12 col-lg-8 mx-auto">
+                            <div class="card border-0 shadow-sm p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <div>
+                                        <label class="fw-medium mb-0" style="font-size: 12px;">Mode Tampilan Website</label>
+                                        <div class="text-muted" id="theme-status-text" style="font-size: 11px;">Mode Terang Aktif</div>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="switchTema" style="cursor: pointer; width: 2.5em; height: 1.25em;">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-4 border-top pt-3">
+                                    <div>
+                                        <label class="fw-medium mb-0" style="font-size: 12px;">Keamanan Kredensial</label>
+                                        <div class="text-muted" style="font-size: 11px;">Perbarui kata sandi akun secara berkala</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-secondary px-3" data-bs-toggle="modal" data-bs-target="#modalUbahSandi" style="font-size: 11px;">
+                                        Ubah Kata Sandi
+                                    </button>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mb-2 border-top pt-3">
+                                    <div>
+                                        <label class="fw-medium text-danger mb-0" style="font-size: 12px;">Sesi Akun</label>
+                                        <div class="text-muted" style="font-size: 11px;">Keluar dan akhiri sesi operasional dashboard</div>
+                                    </div>
+                                    <button class="btn btn-sm btn-danger text-white px-4" id="btnKeluarSistem" style="font-size: 11px; background-color: #ff6675; border: none;">
+                                        Keluar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalUbahSandi" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
+            <div class="modal-content border-0 shadow-lg p-3">
+                <div class="modal-header border-bottom-0 pb-0 position-relative">
+                    <h5 class="modal-title fw-bold text-dark" style="font-size: 16px;">Ubah Kata Sandi</h5>
+                    <button type="button" class="btn-close position-absolute top-0 end-0 mt-2 me-2 fs-7" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <form id="formUbahSandi">
+                        <div class="mb-3 position-relative">
+                            <label class="form-label text-secondary mb-1" style="font-size: 12px;">Kata Sandi Lama</label>
+                            <input type="password" class="form-control" id="sandiLama" placeholder="••••••••" required style="font-size: 12px; background-color: #fffde6; border-color: #fffa9e; color: #333333;">
+                            <div class="text-end mt-1">
+                                <a href="lupa_kata_sandi.html" id="linkLupaSandi" class="text-decoration-none" style="font-size: 11px; color: #00a0e9;">Lupa Kata Sandi?</a>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-secondary mb-1" style="font-size: 12px;">Kata Sandi Baru</label>
+                            <input type="password" class="form-control" id="sandiBaru" placeholder="Masukkan kata sandi baru" required style="font-size: 12px;">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label text-secondary mb-1" style="font-size: 12px;">Konfirmasi Kata Sandi Baru</label>
+                            <input type="password" class="form-control" id="konfirmasiSandiBaru" placeholder="Ulangi kata sandi baru" required style="font-size: 12px;">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0 justify-content-end pt-2 pb-0 gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-4 py-1.5" data-bs-dismiss="modal" style="font-size: 12px; border-radius: 4px;">Batal</button>
+                    <button type="button" class="btn btn-sm text-white px-4 py-1.5" id="btnSimpanSandi" style="background-color: #00a0e9; font-size: 12px; border-radius: 4px;">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/pengaturan.js"></script>
+</body>
+</html>

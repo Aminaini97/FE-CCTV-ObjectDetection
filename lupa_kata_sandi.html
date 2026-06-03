@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lupa Kata Sandi - K3 Monitoring Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light">
+
+    <div class="container-fluid min-vh-100 d-flex align-items-stretch">
+        <div class="row w-100 g-0">
+            <div class="col-lg-5 d-none d-lg-flex flex-column justify-content-center align-items-start p-5 bg-dark text-white auth-hero">
+                <img src="img/LOGO PLN ICONPLUS PUTIH.png" alt="Logo PLN Icon Plus" class="mb-4" style="max-width: 200px;">
+                <h2 class="fw-bold" style="font-size: 22px; color: #00a0e9;">K3 MONITORING DASHBOARD</h2>
+                <p class="text-secondary" style="font-size: 14px;">Pemulihan akses akun Anda.</p>
+            </div>
+
+            <div class="col-lg-7 vh-100 d-flex align-items-center justify-content-center bg-white p-4 p-md-5">
+                <div class="auth-card w-100 mx-auto" style="max-width: 450px;">
+                    <div class="mb-4 text-center">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-circle-exclamation fa-3x" style="color: #00a0e9;"></i>
+                        </div>
+                        <h2 class="fw-bold mb-1" style="font-size: 18px;">Lupa Kata Sandi?</h2>
+                        <p class="text-muted" style="font-size: 12px;">Masukkan email terdaftar Anda. Kami akan mengirimkan instruksi untuk mengatur ulang kata sandi.</p>
+                    </div>
+
+                    <form id="forgotPasswordForm" class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold" style="font-size: 12px;">Email Perusahaan</label>
+                            <input type="email" id="email" class="form-control shadow-none" style="font-size: 12px;" placeholder="nama@perusahaan.com" required>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <button type="submit" id="btnSimpan" class="btn btn-sm w-100 py-2 fw-bold text-uppercase text-white" style="background-color: #00a0e9; font-size: 12px;">Kirim Instruksi</button>
+                        </div>
+
+                        <div id="message" class="col-12 text-center mt-3 small"></div>
+
+                        <div class="col-12 text-center mt-4 border-top pt-3">
+                            <a href="masuk.html" class="text-decoration-none" style="color: #00a0e9; font-size: 12px;">
+                                <i class="fa-solid fa-arrow-left me-1"></i> Kembali ke Halaman Masuk
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnKirim');
+            const msg = document.getElementById('message');
+            
+            btn.disabled = true;
+            btn.innerText = "Mengirim...";
+            
+            // Simulasi pengiriman email
+            setTimeout(() => {
+                msg.innerHTML = "Link pemulihan telah dikirim ke email Anda.";
+                msg.className = "col-12 text-center mt-3 small text-success";
+                btn.innerText = "Kirim Ulang";
+                btn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

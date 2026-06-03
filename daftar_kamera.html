@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Kamera - K3 Monitoring Dashboard</title>
+
+    <script>
+        (function () {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', currentTheme);
+        })();
+    </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile">
+                    <i class="bi bi-list fs-4"></i>
+                </button>
+                
+                <div class="d-flex align-items-center">
+                    <img src="img/logo-pln-icon.png" alt="PLN Logo" class="me-3" style="height: 40px; width: auto; object-fit: contain;">
+                </div>
+                <h1 class="brand-title d-none d-sm-block">K3 MONITORING DASHBOARD</h1>
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="profile.html" class="text-decoration-none">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center border" style="width: 35px; height: 35px; background-color: var(--bg-light);">
+                        <i class="bi bi-person-fill text-secondary fs-5"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            
+            <nav class="col-lg-2 d-none d-lg-block sidebar-wrapper sidebar">
+                <div class="nav flex-column">
+                    <a href="dashboard.html" class="nav-link"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                    <a href="daftar_kamera.html" class="nav-link active"><i class="bi bi-camera-video-fill"></i> Daftar Kamera</a>
+                    <a href="log_riwayat.html" class="nav-link"><i class="bi bi-clock-history"></i> Log Riwayat</a>
+                    <a href="pengaturan.html" class="nav-link"><i class="bi bi-gear-fill"></i> Pengaturan</a>
+                </div>
+            </nav>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarMobile">
+                <div class="offcanvas-header border-bottom">
+                    <h5 class="offcanvas-title brand-title">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body p-0 pt-2">
+                    <div class="nav flex-column">
+                        <a href="dashboard.html" class="nav-link"><i class="bi bi-house-door-fill"></i> Dashboard</a>
+                        <a href="daftar_kamera.html" class="nav-link active"><i class="bi bi-camera-video-fill"></i> Daftar Kamera</a>
+                        <a href="log_riwayat.html" class="nav-link"><i class="bi bi-clock-history"></i> Log Riwayat</a>
+                        <a href="pengaturan.html" class="nav-link"><i class="bi bi-gear-fill"></i> Pengaturan</a>
+                    </div>
+                </div>
+            </div>
+            
+            <main class="col-lg-10 col-12 py-3 px-md-3">
+                <h4 class="fw-bold mb-3" style="font-size: 12px;">DAFTAR KAMERA</h4>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2 w-100">
+                    <div class="d-flex gap-2">
+                        <div class="position-relative d-inline-block">
+                            <select class="form-select form-select-sm w-auto pe-5" style="font-size: 12px; min-width: 110px;" id="filter_area">
+                                </select>
+                            <div id="cont_area" class="position-absolute top-50 end-0 translate-middle-y me-2 filter-icon-wrapper" style="pointer-events: auto; cursor: pointer; z-index: 5;">
+                                <i id="icon_area" class="bi bi-chevron-down small text-secondary"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end align-items-center gap-2">
+                        <div id="global-control-wrapper" class="d-flex align-items-center gap-2"></div>
+                        <button class="btn btn-sm text-white px-3" data-bs-toggle="modal" data-bs-target="#modalTambahKamera" style="background-color: #00a0e9; font-size: 12px;">
+                            <i class="bi bi-plus-lg me-1"></i> Tambahkan Kamera
+                        </button>
+                    </div>
+                </div>
+
+                <div id="device-container" class="border rounded shadow-sm overflow-y-auto max-h-[80vh]"></div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTambahKamera" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold" style="font-size: 14px;">Tambah Kamera Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <form id="formTambahKamera">
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">Nama Kamera</label>
+                            <input type="text" class="form-control form-control-sm" id="inputNamaKamera" placeholder="Contoh: Kamera Lobby Utama" required style="font-size: 12px;">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">Tipe/Kategori Kamera</label>
+                            <select class="form-select form-select-sm" id="selectTipeKamera" required style="font-size: 12px;">
+                                <option value="" disabled selected hidden>Pilih Tipe Kamera...</option>
+                                <option value="Kamera Indoor">Kamera Indoor</option>
+                                <option value="Kamera Outdoor">Kamera Outdoor</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">ID Kamera CCTV</label>
+                            <input type="text" class="form-control form-control-sm" id="inputIDKamera" placeholder="Contoh: 12345ABC" required style="font-size: 12px;">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">Lokasi Penempatan</label>
+                            <select class="form-select form-select-sm" id="selectAreaKamera" required style="font-size: 12px;">
+                                <option value="" disabled selected hidden>Pilih Lokasi Area...</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-4" id="btnBatal" style="font-size: 12px;">Batal</button>
+                    <button type="button" class="btn btn-sm text-white px-4" id="btnTambahkan" style="background-color: #00a0e9; font-size: 12px;">Tambahkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditKamera" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold" style="font-size: 14px;">Edit Kamera</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <form id="formEditKamera">
+                        <input type="hidden" id="editUidKamera">
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">Nama Kamera</label>
+                            <input type="text" class="form-control form-control-sm" id="editNamaKamera" required style="font-size: 12px;">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">Tipe/Kategori Kamera</label>
+                            <select class="form-select form-select-sm" id="editTipeKamera" required style="font-size: 12px;">
+                                <option value="Kamera Indoor">Kamera Indoor</option>
+                                <option value="Kamera Outdoor">Kamera Outdoor</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">ID Kamera CCTV</label>
+                            <input type="text" class="form-control form-control-sm" id="editIDKamera" required style="font-size: 12px;">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #192434;">Lokasi Penempatan</label>
+                            <select class="form-select form-select-sm" id="editAreaKamera" required style="font-size: 12px;">
+                                </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-4" data-bs-dismiss="modal" style="font-size: 12px;">Batal</button>
+                    <button type="button" class="btn btn-sm text-white px-4" id="btnSimpanEdit" style="background-color: #00a0e9; font-size: 12px;">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTambahArea" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 340px;">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold" style="font-size: 14px;">Tambah Area Baru</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <form id="formTambahArea">
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #6c757d;">Tipe Area</label>
+                            <select class="form-select form-select-sm" id="selectTipeArea" style="font-size: 12px;">
+                                <option value="utama" selected>Area Utama (Contoh: Lantai 3)</option>
+                                <option value="sub">Sub-Area (Contoh: Ruang Lab)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2 d-none" id="containerInduk">
+                            <label class="form-label" style="font-size: 12px; color: #6c757d;">Induk Area <span class="text-danger">*</span></label>
+                            <select class="form-select form-select-sm" id="selectIndukArea" style="font-size: 12px;">
+                                <option value="" disabled selected hidden>Pilih Area Induk...</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" style="font-size: 12px; color: #6c757d;">Nama Area</label>
+                            <input type="text" class="form-control form-control-sm" id="inputNamaArea" placeholder="Contoh: Lantai 3 / Ruang Lab" required style="font-size: 12px;">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-top-0 pt-0">
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-4" id="btnBatalArea" style="font-size: 12px;">Batal</button>
+                    <button type="button" class="btn btn-sm text-white px-4" id="btnSimpanArea" style="background-color: #00a0e9; font-size: 12px;">Tambahkan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalHapusKamera" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 320px;">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-body pt-4 text-center">
+                    <i class="bi bi-exclamation-circle text-danger mb-3 d-inline-block" style="font-size: 40px; line-height: 1;"></i>
+                    <h6 class="fw-bold text-dark mb-1" style="font-size: 14px;">Hapus Kamera?</h6>
+                    <p class="text-secondary px-2 mb-0" id="textKonfirmasiHapus" style="font-size: 12px;"></p>
+                    <input type="hidden" id="deleteUidKamera">
+                </div>
+                <div class="modal-footer border-top-0 justify-content-center pt-0 pb-4 gap-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary px-3" data-bs-dismiss="modal" style="font-size: 12px;">Batal</button>
+                    <button type="button" class="btn btn-sm btn-danger px-3" id="btnKonfirmasiHapus" style="font-size: 12px; background-color: #dc3545; border-color: #dc3545;">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/daftar_kamera.js"></script>
+</body>
+</html>
