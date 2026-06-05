@@ -274,12 +274,6 @@ html, body {
     background-color: rgba(0,0,0,0.5) !important;
 }
 
-.btn-sm {
-    width: 30px;
-    height: 30px;
-    padding: 0;
-}
-
 /* ==========================================================================
    5. MEDIA QUERIES (MEDIA RESPONSIVE LAYOUT)
    ========================================================================== */
