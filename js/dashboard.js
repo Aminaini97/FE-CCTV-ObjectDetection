@@ -9,7 +9,7 @@ const daftarKamera = [
 ];
 
 let currentPage = 0;
-const itemsPerPage = 2;
+const itemsPerPage = 4;
 
 // Fungsi untuk membuka modal
 function openCameraModal(cameraId) {
@@ -32,27 +32,23 @@ function renderKamera() {
 
     paginatedItems.forEach(k => {
         const col = document.createElement('div');
-        col.className = 'col-md-6';
+        col.style.width = "410px";
         
         col.innerHTML = `
-            <div class="card shadow-sm border-0 h-100 cursor-pointer overflow-hidden" onclick="openCameraModal('${k.id}')">
-                <div class="bg-black text-white ratio ratio-16x9 d-flex align-items-center justify-content-center position-relative" 
-                    style="border-top-left-radius: 0.375rem; border-top-right-radius: 0.375rem;">
-                    
-                    <div class="position-absolute top-0 start-0 m-2">
-                        <span class="text-white fw-bold" style="font-size: 14px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">${k.id}</span>
-                    </div>
-                    
-                    </div>
+            <div class="card shadow-sm border-0 h-100 cursor-pointer overflow-hidden position-relative" onclick="openCameraModal('${k.id}')">
+                <div class="bg-black text-white ratio ratio-16x9 d-flex align-items-center justify-content-center">
+                </div>
                 
-                <div class="card-body p-2">
-                    <h6 class="mb-1 fw-bold" style="font-size: 12px;">${k.nama}</h6>
-                    <p class="text-muted mb-2" style="font-size: 12px;">Lokasi: ${k.lokasi}</p>
-                    <div class="status-box-${k.id}">
-                        <div class="alert alert-${k.type} p-1 mb-0 d-flex justify-content-between align-items-center" style="font-size: 12px;">
-                            <span>${k.status === 'Aman' ? 'Area Aman - Tidak Ada Pelanggaran' : k.status}</span>
-                            <span class="fw-medium">${k.time}</span>
-                        </div>
+                <div class="position-absolute top-0 w-100 p-2 d-flex justify-content-between">
+                    <span class="text-white fw-bold" style="font-size: 14px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">${k.id}</span>
+                </div>
+
+                <div class="position-absolute bottom-0 w-100 p-2 bg-gradient-dark">
+                    <h6 class="text-white mb-0 fw-bold" style="font-size: 12px;">${k.nama}</h6>
+                    <p class="text-white-50 mb-1" style="font-size: 10px;">${k.lokasi}</p>
+                    <div class="alert alert-${k.type} p-1 mb-0 d-flex justify-content-between align-items-center" style="font-size: 10px; border-radius: 3px;">
+                        <span>${k.status === 'Aman' ? 'Area Aman - Tidak Ada Pelanggaran' : k.status}</span>
+                        <span class="fw-medium">${k.time}</span>
                     </div>
                 </div>
             </div>
@@ -79,7 +75,7 @@ function updateLiveDetection() {
         const statusElement = document.querySelector(`.status-box-${kamera.id}`);
         if (statusElement) {
             statusElement.innerHTML = `
-                <div class="alert alert-${kamera.type} p-1 mb-0 d-flex justify-content-between align-items-center" style="font-size: 12px;">
+                <div class="alert alert-${kamera.type} p-1 mb-0 d-flex justify-content-between align-items-center" style="font-size: 10px; border-radius: 3px;">
                     <span>${kamera.status === 'Aman' ? 'Area Aman - Tidak Ada Pelanggaran' : kamera.status}</span>
                     <span class="fw-medium">${kamera.time}</span>
                 </div>`;
